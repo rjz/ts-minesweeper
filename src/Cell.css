@@ -1,0 +1,50 @@
+.cell {
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  border-radius: 2px;
+  background-color: #231f20;
+  margin: 1px;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.cell:focus {
+  outline: none;
+}
+
+.cell--revealed {
+  font-weight: bold;
+  background-color: #333;
+  transition: background-color linear 0.2s;
+}
+
+.cell--flagged {
+  color: #fff;
+}
+
+.cell--revealed-0 { color: #555; }
+.cell--revealed-1 { color: #c33; }
+.cell--revealed-2 { color: #3c3; }
+.cell--revealed-3 { color: #0aa; }
+.cell--revealed-4 { color: #aa0; }
+.cell--revealed-5 { color: #a0a; }
+
+.cell--exploded {
+  background-color: #a00;
+  animation: 0.7s infinite alternate pulse;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 1);
+  }
+
+  to {
+    box-shadow: 0 0 25px 10px rgba(255, 0, 0, 1);
+  }
+}
