@@ -2,7 +2,7 @@
 
 Minesweeper clone with TypeScript, Redux, and React
 
-<p style="text-align:center">
+<p align="center">
   <img src="screenshot.png" alt="Screenshot of ts-minesweeper" />
 </p>
 
