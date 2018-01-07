@@ -1,6 +1,6 @@
 # ts-minesweeper
 
-Minesweeper clone with TypeScript, Redux, and React
+Minesweeper clone with TypeScript, Redux, and React ([demo][demo]).
 
 <p align="center">
   <img src="screenshot.png" alt="Screenshot of ts-minesweeper" />
@@ -18,3 +18,5 @@ Install and build demo application:
 ## License
 
 MIT
+
+[demo]: http://ts-minesweeper.surge.sh/
