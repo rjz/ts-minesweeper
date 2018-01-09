@@ -19,7 +19,8 @@ const Status: React.SFC<StatusProps> = (props) => {
     status: resolution,
     moveCount: props.moveCount,
     mineCount: props.mineCount,
-    grid: `${props.width} x ${props.height}`
+    grid: `${props.width} x ${props.height}`,
+    source: <a href="https://github.com/rjz/ts-minesweeper">github</a>,
   };
 
   return (
