@@ -1,11 +1,12 @@
 .cell {
   color: #fff;
   cursor: pointer;
-  border: 0;
-  border-radius: 2px;
-  background-color: #231f20;
-  margin: 1px;
-  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background-color: #ddd;
+  margin: 3px;
+  padding: 7px;
+  text-shadow: 0 1px rgba(0,0,0,0.2);
   width: 40px;
   height: 40px;
 }
@@ -16,23 +17,23 @@
 
 .cell--revealed {
   font-weight: bold;
-  background-color: #333;
+  background-color: #bbb;
   transition: background-color linear 0.2s;
 }
 
 .cell--flagged {
-  color: #fff;
+  color: #777;
 }
 
-.cell--revealed-0 { color: #555; }
-.cell--revealed-1 { color: #c33; }
-.cell--revealed-2 { color: #3c3; }
-.cell--revealed-3 { color: #0aa; }
-.cell--revealed-4 { color: #aa0; }
-.cell--revealed-5 { color: #a0a; }
+.cell--revealed-0 { background-color: #bbb; }
+.cell--revealed-1 { background-color: #a99; }
+.cell--revealed-2 { background-color: #9a9; }
+.cell--revealed-3 { background-color: #99a; }
+.cell--revealed-4 { background-color: #9aa; }
+.cell--revealed-5 { background-color: #a9a; }
 
 .cell--exploded {
-  background-color: #a00;
+  background-color: #c99;
   animation: 0.7s infinite alternate pulse;
   position: relative;
   z-index: 1;
@@ -41,10 +42,10 @@
 
 @keyframes pulse {
   from {
-    box-shadow: 0 0 20px 5px rgba(255, 0, 0, 1);
+    box-shadow: 0 0 20px 5px rgba(200, 153, 153, 1);
   }
 
   to {
-    box-shadow: 0 0 25px 10px rgba(255, 0, 0, 1);
+    box-shadow: 0 0 25px 10px rgba(200, 153, 153, 1);
   }
 }

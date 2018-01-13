@@ -68,7 +68,9 @@ class App extends React.Component<Props> {
         <p>
           <code>click</code>: reveal; &nbsp;
           <code>ctrl + click</code>: flag / reveal
-          <button onClick={this.resetGame}>restart</button>
+          <button onClick={this.resetGame}>
+            <i className="fa fa-refresh"></i> restart
+          </button>
         </p>
         {this.renderBoard()}
         <Status {...this.props} />
