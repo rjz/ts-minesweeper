@@ -5,26 +5,27 @@
   "author": "RJ Zaworski <rj@rjzaworski.com> (https://rjzaworski.com)",
   "license": "MIT",
   "dependencies": {
-    "font-awesome": "^4.7.0",
-    "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-redux": "^5.0.6",
-    "react-scripts-ts": "2.8.0",
-    "redux": "^3.7.2"
-  },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@types/jest": "^21.1.6",
-    "@types/node": "^8.0.51",
-    "@types/react": "^16.0.22",
-    "@types/react-dom": "^16.0.3",
-    "@types/react-redux": "^5.0.12",
-    "@types/redux": "^3.6.0"
+    "@types/jest": "^25.2.2",
+    "@types/node": "^13.13.4",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "css-loader": "^3.5.3",
+    "jest": "^26.0.1",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
-  "homepage": "https://ts-minesweeper.surge.sh"
+  "homepage": "https://ts-minesweeper.surge.sh",
+  "scripts": {
+    "test": "npx jest",
+    "watch": "npx webpack --watch"
+  }
 }

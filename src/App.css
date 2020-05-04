@@ -1,7 +1,38 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2em;
+  min-width: 600px;
+  width: 60vw;
+}
+
+.header {
+  padding-left: 1.2em;
+  text-align: left;
+}
+
+.header h1 {
+  display: inline-block;
+  font-size: 48pt;
+  font-family: georgia, serif;
+  font-weight: normal;
+  margin: 0;
+  position: relative;
+  top: 0.3em;
+  z-index: -1;
+}
+
+.header h1.settled {
+  background-color: #231f20;
+  color: #fff;
+  z-index: 1;
+}
+
+.header h1.settled del {
+  background-color: #fff;
+  color: #231f20;
+  display: inline-block;
+}
+
+footer {
+  margin: 2em 0;
+  padding: 1em 0;
+  text-align: center;
 }

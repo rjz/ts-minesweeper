@@ -1,57 +1,163 @@
-import * as React from 'react';
+import * as React from "react";
+import "./App.css";
 
-import * as minesweeper from './minesweeper';
+import { CellStatus } from "./minesweeper";
+import { Action } from "./reducer";
+import Explosion from "./Explosion";
+import Flag from "./Flag";
+import CellBorder, { BORDER_WIDTH } from "./CellBorder";
 
-import './Cell.css';
+const fillBlack = { fill: "#231f20" };
+const fillWhite = { fill: "#fff" };
 
-type CellProps = minesweeper.Cell & {
-  onClick(): void
-  onCtrlClick(): void
+const label = {
+  fontSize: "20%",
+  fontWeight: "bold"
 };
 
-class Cell extends React.Component<CellProps> {
-  constructor(props: CellProps) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
+export enum Button {
+  NONE = 0,
+  LEFT = 1,
+  RIGHT = 2,
+  BOTH = 4
+}
 
-  onClick(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (e.ctrlKey) {
-      this.props.onCtrlClick();
-    } else {
-      this.props.onClick();
-    }
-  }
+export default function Cell(props: {
+  xy: string;
+  dim: number;
+  isReadonly: boolean;
+  status: CellStatus;
+  dispatch: React.Dispatch<Action>;
+  border: string;
+  label?: string;
+}) {
+  const { xy, dim, status, dispatch } = props;
 
-  render() {
-    const {
-      status,
-      revealedCount,
-    } = this.props;
+  const isExploded = status === CellStatus.Exploded;
+  const isFlagged = status === CellStatus.Flagged;
 
-    let icon = <i>.</i>;
-    let className = 'cell';
-    if (status === minesweeper.CellStatus.Exploded) {
-      icon = <i className="fa fa-bomb" />;
-      className += ' cell--exploded';
-    } else if (status === minesweeper.CellStatus.Revealed) {
-      icon = <i>{revealedCount > 0 ? revealedCount.toString() : '.'}</i>;
-      className += ` cell--revealed cell--revealed-${revealedCount}`;
-    } else if (status === minesweeper.CellStatus.Flagged) {
-      icon = <i className="fa fa-flag" />;
-      className += ' cell--flagged';
-    }
+  const [buttonState, setButtonState] = React.useState({
+    right: false,
+    left: false,
+    both: false
+  });
 
-    return (
-      <button
-        className={className}
-        onClick={this.onClick}
+  const [isHover, setHover] = React.useState(false);
+
+  const isReadonly =
+    props.isReadonly ||
+    (status !== CellStatus.Flagged && status !== CellStatus.Unknown);
+
+  const handlers = React.useMemo(
+    function () {
+      return {
+        onContextMenu(e: React.MouseEvent<SVGGElement>) {
+          // Cancel right click
+          e.preventDefault();
+        },
+        onMouseDown(e: React.MouseEvent<SVGGElement>) {
+          e.preventDefault();
+          if (e.button === 0) {
+            return setButtonState({
+              ...buttonState,
+              left: true,
+              both: buttonState.right
+            });
+          } else if (e.button === 2) {
+            return setButtonState({
+              ...buttonState,
+              right: true,
+              both: buttonState.left
+            });
+          }
+        },
+        onMouseUp(e: React.MouseEvent<SVGGElement>) {
+          e.preventDefault();
+
+          let newButtonState = { ...buttonState };
+          if (e.button === 0) {
+            newButtonState.left = false;
+            if (!buttonState.both) {
+              dispatch({
+                type: "REVEAL_LOCATION",
+                xy
+              });
+            } else if (!buttonState.right) {
+              newButtonState.both = false;
+              dispatch({
+                type: "REVEAL_NEIGHBORS",
+                xy
+              });
+            }
+          } else if (e.button === 2) {
+            newButtonState.right = false;
+            if (!buttonState.both) {
+              dispatch({
+                type: "FLAG_LOCATION",
+                xy
+              });
+            } else if (!buttonState.left) {
+              newButtonState.both = false;
+              dispatch({
+                type: "REVEAL_NEIGHBORS",
+                xy
+              });
+            }
+          }
+
+          setButtonState(newButtonState);
+        }
+      };
+    },
+    [buttonState.left, buttonState.right, buttonState.both]
+  );
+
+  return (
+    <>
+      <g
+        style={{ cursor: isReadonly ? "default" : "pointer" }}
+        {...handlers}
+        onMouseOver={() => setHover(true)}
+        onMouseOut={() => setHover(false)}
       >
-        {icon}
-      </button>
-    );
-  }
-};
+        <rect
+          style={
+            isExploded ? fillBlack : isReadonly ? { opacity: 0 } : fillWhite
+          }
+          x={BORDER_WIDTH - dim / 2}
+          y={BORDER_WIDTH - dim / 2}
+          width={dim - BORDER_WIDTH}
+          height={dim - BORDER_WIDTH}
+        />
 
-export default Cell;
+        {/* (optional) text label */}
+        {!isFlagged && props.label && (
+          <text
+            style={{
+              userSelect: "none",
+              fill: isExploded ? "#fff" : "#231f20",
+              fontWeight: isExploded ? "bold" : "normal"
+            }}
+            fontSize={5}
+            textAnchor="middle"
+            dominantBaseline="central"
+          >
+            {props.label}
+          </text>
+        )}
+        {isExploded && <Explosion />}
+
+        {isFlagged && <Flag r={dim * 0.15} />}
+      </g>
+
+      <CellBorder
+        dim={dim}
+        border={props.border}
+        cornerRadius={status === CellStatus.Unknown ? 0.2 : 0}
+      />
+      {isHover && !isReadonly && (
+        <CellBorder dim={dim} border={"1111"} cornerRadius={0} />
+      )}
+    </>
+  );
+}

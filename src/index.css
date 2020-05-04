@@ -1,29 +1,21 @@
 body {
-  background-color: #eee;
-  color: #444;
+  background-color: #fff;
+  color: #231f20;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-}
-
-code {
-  background-color: #ccc;
-  border-radius: 3px;
-  padding: 0.1rem 0.3rem;
-}
-
-button {
-  border: 1px solid #bbb;
-  background-color: #ccc;
-  border-radius: 3px;
-  color: #666;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1.1em;
-  margin: 0 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a:link,
 a:visited {
-  color: #444;
+  border-bottom: 1px dotted #231f20;
+  color: #231f20;
+  text-decoration: none;
+}
+
+a:hover {
+  border-bottom-style: solid;
 }
